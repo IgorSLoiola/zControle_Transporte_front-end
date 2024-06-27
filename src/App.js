@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Navbar from "./components/navbar";
+import { AuthProvider } from "./components/auth";
+import Footer from "./components/footer";
+import Index from "./pages/index";
+import Home from "./pages/home";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import UserProfile from "./pages/profile";
+import MapPage from "./pages/map";
+import Register_vehicle from "./pages/register_vehicle";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile/:Id" element={<UserProfile />} />
+            <Route path="/map" element={<MapPage />} />
+            <Route path="/register_vehicle" element={<Register_vehicle />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
