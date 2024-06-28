@@ -11,7 +11,6 @@ function Login() {
 
   const navigate = useNavigate();
   const { setIsLoggedIn } = useAuth();
-  // const [token, setToken] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,15 +20,39 @@ function Login() {
         password_hash,
       });
       const token = response.data.token;
-      // setToken(token);
       localStorage.setItem("token", token);
-      const decoded = jwtDecode(token);
+      // const decoded = jwtDecode(token);
       setIsLoggedIn(true); // Atualiza o estado de autenticação
       navigate("/home");
     } catch (error) {
       console.error(error);
     }
   };
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const token = localStorage.getItem("token");
+  //     if (token) {
+  //       try {
+  //         const decodedToken = jwtDecode(token);
+  //         const now = Date.now() / 1000;
+
+  //         if (decodedToken.exp < now) {
+  //           setIsLoggedIn(false);
+  //           localStorage.removeItem("token");
+  //         }
+  //       } catch (error) {
+  //         console.error("Error decoding token:", error);
+  //         setIsLoggedIn(false);
+  //       }
+  //     } else {
+  //       setIsLoggedIn(false);
+  //     }
+  //   }, 60000); // 60000 ms = 1 minuto
+
+  // Limpar intervalo ao desmontar o componente
+  //   return () => clearInterval(interval);
+  // }, [setIsLoggedIn]);
 
   return (
     <div className="login-container">
